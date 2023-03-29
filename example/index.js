@@ -1,11 +1,6 @@
-import { apple } from './libs/apple.js';
-import { orange } from './libs/orange.js';
-import { one } from './components/one.js';
-
+import txt from './test.txt';
 function main() {
-  apple();
-  orange();
-  one();
+  console.log(txt);
 }
 
 main();
