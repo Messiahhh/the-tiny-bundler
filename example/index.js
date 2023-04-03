@@ -1,6 +1,3 @@
-import txt from './test.txt';
-function main() {
-  console.log(txt);
-}
+import { one } from './one';
 
-main();
+one();
