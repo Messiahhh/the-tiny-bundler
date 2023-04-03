@@ -27,7 +27,17 @@ async function readConfig(path: string) {
     entry: 'example/index.js',
     output: 'dist/index.js',
     extensions: ['.js', '.ts'],
-    loaders: [],
+    loaders: [
+      {
+        test: /\.html$/g,
+        use: async id => {
+          const content = await fs.readFile(id, 'utf-8');
+          return {
+            code: `module.exports = ${JSON.stringify(content)}`,
+          };
+        },
+      },
+    ],
   };
   try {
     const file = await fs.readFile(path, 'utf-8');

@@ -1,3 +1,3 @@
-import { one } from './one';
+import content from './page.html';
 
-one();
+console.log(content);

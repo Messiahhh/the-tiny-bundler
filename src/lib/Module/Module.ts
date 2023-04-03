@@ -22,14 +22,25 @@ export class Module {
     }
     Module.Cache.set(this.id, this);
 
-    // onLoad
-    if (this.id.endsWith('@virtual')) {
-      this.code = `module.exports = 200`;
-      this.dependencies = {};
-      return this;
+    const name = this.id.split('/').pop()!;
+    const ext = name.match(/\.\w+$/)?.[0];
+
+    /**
+     * external loaders
+     */
+    for (const { test: regexp, use: loader } of this.config.loaders) {
+      if (regexp.test(name)) {
+        const { code, dependencies = {} } = await loader(this.id);
+        this.code = code;
+        this.dependencies = dependencies;
+        return this;
+      }
+      continue;
     }
 
-    const ext = this.id.match(/\.\w+$/)?.[0];
+    /**
+     * build-in loaders
+     */
     if (ext) {
       switch (ext) {
         case '.ts':

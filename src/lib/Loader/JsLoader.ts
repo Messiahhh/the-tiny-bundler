@@ -25,8 +25,9 @@ export async function JsLoader(id: string): Promise<{
   });
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { code } = (await transformFromAstAsync(ast, undefined, {
-    presets: ['@babel/preset-env'],
+  const { code } = (await transformFromAstAsync(ast, oldCode, {
+    filename: 'index.ts',
+    presets: ['@babel/preset-typescript', '@babel/preset-env'],
   }))!;
 
   return {

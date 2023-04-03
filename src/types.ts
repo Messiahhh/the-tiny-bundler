@@ -5,7 +5,7 @@ export interface IConfig {
   extensions: `.${string}`[];
   loaders: {
     test: RegExp;
-    use: ILoader[];
+    use: ILoader; // 暂不支持数组
   }[];
 }
 
